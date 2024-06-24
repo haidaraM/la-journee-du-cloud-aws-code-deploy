@@ -1,0 +1,12 @@
+{
+  "applicationName": "${applicationName}",
+  "deploymentGroupName": "${deploymentGroupName}",
+  "description": "${description}",
+  "revision": {
+    "revisionType": "AppSpecContent",
+    "appSpecContent": {
+      "content": "${appSpecContent}",
+      "sha256": "${appSpecContentSha256}"
+    }
+  }
+}
