@@ -32,7 +32,7 @@ En sortie, vous aurez les informations suivantes dans la console :
 ```bash
 api_url = "http://demo-ljdc-2024-xxxxxxx.eu-west-3.elb.amazonaws.com/admin"
 code_deploy_command = "aws deploy create-deployment --cli-input-json file://./out/code-deploy-args.json --region eu-west-3"
-deploy_helper_commands = [
+deployment_helper_commands = [
   "aws ecs run-task --launch-type FARGATE --cluster demo-ljdc-2024-ecs-cluster --task-definition arn:aws:ecs:eu-west-3:xxxxxx:task-definition/demo-ljdc-2024-api-deployment-helper:8 --network-configuration 'awsvpcConfiguration={subnets=[subnet-0bf10625beff3b9f0,subnet-012cb750c092ab378,subnet-05bc7548ec94fabf6],securityGroups=[sg-0e567184f222cd55a],assignPublicIp=DISABLED}'  --query 'tasks[0].taskArn' --output text",
   "aws ecs wait tasks-stopped --cluster demo-ljdc-2024-ecs-cluster --tasks $(aws ecs list-tasks --cluster demo-ljdc-2024-ecs-cluster --desired-status STOPPED --family demo-ljdc-2024-api-deployment-helper --query 'taskArns' --output text)",
 ]
@@ -42,6 +42,10 @@ logs_groups_tail_commands = {
 }
 ```
 
+## Le deployment helper
+
+Pour lancer les migrations Django et la collecte des fichiers statiques, une tâche ECS est utilisée. 
+Elle utilise la même image que l'application mais avec une commande différente.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements

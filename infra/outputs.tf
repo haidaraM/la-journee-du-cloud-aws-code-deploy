@@ -2,7 +2,7 @@ locals {
   subnet_ids = join(",", var.private_subnet_ids)
 }
 
-output "deploy_helper_commands" {
+output "deployment_helper_commands" {
   description = "Commandes pour deployer le code"
   value = [
     "aws ecs run-task --launch-type FARGATE --cluster ${aws_ecs_cluster.this.name} --task-definition ${aws_ecs_task_definition.deployment_helper.arn} --network-configuration 'awsvpcConfiguration={subnets=[${local.subnet_ids}],securityGroups=[${aws_security_group.api.id}],assignPublicIp=DISABLED}'  --query 'tasks[0].taskArn' --output text",
